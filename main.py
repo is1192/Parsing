@@ -9,7 +9,9 @@
 from bs4 import BeautifulSoup as bs
 import requests as rq
 import json
+#from os import path as p
 url = "https://www.globus.ru/catalog/"
+main_url = "https://www.globus.ru/"
 resp = rq.get(url)
 soup = bs(resp.text,"html.parser")
 links = soup.select("a.pim-list-sections__item")
@@ -21,6 +23,7 @@ for link in links:
         cat.append(link.text.strip())
         cdict[link.text.strip()] = link.attrs['href']
         cjs=json.dumps(cdict, ensure_ascii=False, indent=2)
+        print(main_url+link.attrs['href'])
 print(cat)
 print(cdict)
 print(cjs)
